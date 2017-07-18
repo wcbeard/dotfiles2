@@ -7,3 +7,9 @@ require(["codemirror/keymap/sublime", "notebook/js/cell", "base/js/namespace"],
         }
     }
 );
+
+
+$([IPython.events]).on("app_initialized.NotebookApp", function () {
+    $('div#header-container').hide();
+    $('div#maintoolbar').hide();
+});
