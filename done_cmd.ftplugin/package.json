@@ -1,0 +1,10 @@
+{
+    "name": "Mark done",
+    "version": "1.0.0",
+    "description": "Shortcut to mark done",
+    "homepage": "http://wcbeard.github.io/blog/",
+    "engines": {
+        "foldingtext": ">=2.0.0",
+        "taskpaper": ">=3.0.0"
+    }
+}
