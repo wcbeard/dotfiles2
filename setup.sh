@@ -9,3 +9,7 @@ fi
 mkdir -p "$JUPYTER/custom"
 
 cp custom.js "$JUPYTER/custom/"
+
+
+# Brew
+# brew tap caskroom/fonts

@@ -1,0 +1,6 @@
+ font-source-code-pro
+ font-source-code-pro-for-powerline
+ font-inconsolata
+ font-inconsolata-for-powerline
+ font-fira-mono
+ font-fira-mono-for-powerline
