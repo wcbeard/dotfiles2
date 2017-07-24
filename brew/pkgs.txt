@@ -1,4 +1,5 @@
 autoenv
+autojump
 brew-cask-completion
 coreutils
 graphviz
