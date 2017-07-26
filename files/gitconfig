@@ -1,0 +1,47 @@
+[user]
+	name = d10genes
+	email = wcbeard10@gmail.com
+[credential]
+	helper = osxkeychain
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[core]
+	excludesfile = ~/global_gitignore.txt
+	autocrlf = input
+	filemode = false
+[merge]
+	# tool = vimdiff
+	tool = fugitive
+[mergetool "diffmerge"]
+	cmd = diffmerge --merge\n--result=$MERGED $LOCAL $BASE $REMOTE
+	trustExitCode = true
+[mergetool "fugitive"]
+	cmd = vim -f -c "Gdiff" "$MERGED"
+[mergetool]
+	keepBackup = false
+[diff]
+	tool = kdiff3
+	algorithm = patience
+	#external = /usr/bin/vimdiff
+	#external = /Users/beardc01/src/git-twdiff.sh
+[difftool "diffmerge"]
+	cmd = diffmerge $LOCAL $REMOTE
+[alias]
+	root = !pwd
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/twdiff --resume --reverse --wait \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = " "
+	trustExitCode = true
+[push]
+	default = simple
+[url "https://"]
+	insteadOf = git://
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
