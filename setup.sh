@@ -18,21 +18,23 @@ cp -r "$SCRIPTPATH/done_cmd.ftplugin" "$HOME/Library/Application Support/Folding
 # Brew
 # run brew/brew.sh
 
-rm $HOME/.bash_aliases
-rm $HOME/.screenrc
-rm $HOME/.tmux.conf
-rm $HOME/.vimrc
-rm $HOME/.zshrc
-rm $HOME/.nvimrc
-rm $HOME/.gitconfig
+mkdir -p "$HOME/.config/nvim/"
 
-ln -s $FILES/bash_aliases $HOME/.bash_aliases
-ln -s $FILES/screenrc $HOME/.screenrc
-ln -s $FILES/tmux.conf $HOME/.tmux.conf
-ln -s $FILES/vimrc $HOME/.vimrc
-ln -s $FILES/zshrc $HOME/.zshrc
-ln -s $FILES/nvimrc $HOME/.nvimrc
-ln -s $FILES/gitconfig $HOME/.gitconfig
+rm "$HOME/.bash_aliases"
+rm "$HOME/.screenrc"
+rm "$HOME/.tmux.conf"
+rm "$HOME/.vimrc"
+rm "$HOME/.zshrc"
+rm "$HOME/.config/nvim/init.vim"
+rm "$HOME/.gitconfig"
+
+ln -s "$FILES/bash_aliases" "$HOME/.bash_aliases"
+ln -s "$FILES/screenrc" "$HOME/.screenrc"
+ln -s "$FILES/tmux.conf" "$HOME/.tmux.conf"
+ln -s "$FILES/vimrc" "$HOME/.vimrc"
+ln -s "$FILES/zshrc" "$HOME/.zshrc"
+ln -s "$FILES/gitconfig" "$HOME/.gitconfig"
+ln -s "$FILES/nvimrc" "$HOME/.config/nvim/init.vim"
 
 
 
