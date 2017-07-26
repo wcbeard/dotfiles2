@@ -17,4 +17,5 @@ slack
 sublime-text
 taskpaper
 textual
+the-unarchiver
 typora
