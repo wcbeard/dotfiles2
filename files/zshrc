@@ -63,6 +63,7 @@ plugins=(git zsh-autosuggestions pip python tmux sublime cp autopep8)
 
 
 source $ZSH/oh-my-zsh.sh
+BREW=$(brew --prefix)
 
 # User configuration
 
@@ -106,10 +107,9 @@ ptpy () {
 }
 
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=($BREW/share/zsh-completions $fpath)
 
 # autojump/autoenv
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-source /usr/local/opt/autoenv/activate.sh
+[ -f $BREW/etc/profile.d/autojump.sh ] && . $BREW/etc/profile.d/autojump.sh
+#source $BREW/opt/autoenv/activate.sh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
