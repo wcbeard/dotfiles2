@@ -12,6 +12,7 @@
 	excludesfile = ~/global_gitignore.txt
 	autocrlf = input
 	filemode = false
+	editor = ~/.linuxbrew/bin/nvim
 [merge]
 	# tool = vimdiff
 	tool = fugitive
