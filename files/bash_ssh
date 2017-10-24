@@ -95,16 +95,11 @@ publish_www () {
         return 1
     fi
     local n="${#@}"
-    # echo "n: $n"
     if [[ "$#" -ge 2 ]];
         then
 
-        # length=$(($#-1))
-        # echo "length: $length"
         FILES=${@:1:$n-1}
-        # echo "FILES: $FILES"
         local TARGET_DIR=${@:$n}
-        # echo "TARGET_DIR: $TARGET_DIR"
 
         for f in $FILES; do
             if [[ -f "$f" ]]; then
@@ -118,17 +113,6 @@ publish_www () {
             fi
         done
 
-        # local args=()
-        # # for i; do args=("$i") + "$args"; done
-        # for i; do args=("$i" "${args[@]}"); done
-        # set -- $args
-        # local TARGET_DIR="$1"
-        # echo "1 $1"
-        # echo "args: $args"
-        # # echo "args[0]: $args"
-        # local FILES="${args[@]:1}"
-        # echo "FILES: $FILES"
-        # echo "${FILES[0]}"
     else
         publish_file $f $TARGET_DIR
 
