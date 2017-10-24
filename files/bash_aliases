@@ -86,3 +86,7 @@ alias julia="/Applications/Julia-0.4*/Contents/Resources/julia/bin/julia"
 # ln -s /Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia /usr/local/bin/julia
 # alias julia="exec '/Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia'"
 # alias psc-make=~/repos/scatter/.cabal-sandbox/bin/psc-make
+
+alias ff="/Applications/Firefox.app/Contents/MacOS/firefox -ProfileManager"
+alias ffn="/Applications/FirefoxNightly.app/Contents/MacOS/firefox -ProfileManager"
+alias ffd="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox -ProfileManager"
