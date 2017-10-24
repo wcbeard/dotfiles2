@@ -1,0 +1,140 @@
+#
+# Mozilla-specific bash configuration.
+#
+# Source this from local bash dotfiles. It will get sourced from ./bash_profile
+# automatically if USE_MOZ_PROFILE is "true".
+#
+
+
+# Our LDAP-protected web server.
+export WWW_SERVER="dashboard1.metrics.scl3.mozilla.com"
+# The www dir for hosting files behind LDAP.
+export WWW_BASEDIR="/data/www/metrics.mozilla.com/protected/wbeard"
+export dashboard1="dashboard1.metrics.scl3.mozilla.com"
+export hala1="hala1.metrics.scl3.mozilla.com"
+# S3 buckets.
+#
+# Parquet datasets (Spark DataFrames).
+export S3_DT="s3://telemetry-parquet"
+# Raw Telemetry data.
+export S3_RAWDATA="s3://net-mozaws-prod-us-west-2-pipeline-data"
+# Telemetry metadata.
+export S3_METADATA="s3://net-mozaws-prod-us-west-2-pipeline-metadata"
+# "Home dir" in Metrics bucket.
+export S3_HOME="s3://mozilla-metrics/user/wbeard"
+
+
+# Copy a file to the web server, and make it visible.
+# Usage: publish_www <file> <server_dir>
+# <server_dir> is optional, defaults to "tmp".
+
+
+publish_file () {
+    # The path to the web dir on the web server.
+    # Default to the 'tmp' subdir.
+    local LOCAL_FILENAME="$(basename "$1")"
+    local TARGET_DIR="$WWW_BASEDIR/${2:-tmp}"
+    local TARGET_FILE="$TARGET_DIR/$LOCAL_FILENAME"
+
+    # Copy the file.
+    scp "$1" "$WWW_SERVER:$TARGET_DIR"
+    # If copying failed, could be because the VPN was not connected.
+    if [[ "$?" != 0 ]]; then
+        echo "Copying failed. Is the VPN connected?" 1>&2
+        return 1
+    fi
+    echo "$LOCAL_FILENAME was copied to $TARGET_DIR"
+
+    # Check the permissions on the copied file.
+    local STAT_CMD="stat -c \"%a\" $TARGET_FILE"
+    local PERMS_ON_SERVER="$(ssh dashboard1.metrics.scl3.mozilla.com "$STAT_CMD")"
+    if [[ "$PERMS_ON_SERVER" != "644"  ]]; then
+        ssh dashboard1.metrics.scl3.mozilla.com "chmod 644 $TARGET_FILE"
+        echo "Permissions updated."
+    fi
+}
+
+publish_dir () {
+    # The path to the web dir on the web server.
+    # Default to the 'tmp' subdir.
+    local LOCAL_DIRNAME="$(basename "$1")"
+    local TARGET_DIR="$WWW_BASEDIR/${2:-tmp}"
+    local TARGET_FILE="$TARGET_DIR/$LOCAL_DIRNAME"
+
+    # Copy the dir
+    scp -rp "$1" "$WWW_SERVER:$TARGET_DIR"
+    # If copying failed, could be because the VPN was not connected.
+    if [[ "$?" != 0 ]]; then
+        echo "Copying failed. Is the VPN connected?" 1>&2
+        return 1
+    fi
+    echo "$LOCAL_DIRNAME was copied to $TARGET_DIR"
+
+    # Check the permissions on the copied file.
+    local STAT_CMD="stat -c \"%a\" $TARGET_FILE"
+    local PERMS_ON_SERVER="$(ssh dashboard1.metrics.scl3.mozilla.com "$STAT_CMD")"
+    if [[ "$PERMS_ON_SERVER" != "755"  ]]; then
+        ssh dashboard1.metrics.scl3.mozilla.com "chmod 755 $TARGET_FILE"
+        echo "Permissions updated."
+    fi
+}
+
+
+publish_www () {
+    if [ -n "$ZSH_VERSION" ]; then
+        emulate -L sh
+    fi
+
+    if [[ "$#" == 0 ]]; then
+        local MSG="\nUsage: publish_www <local file> <server dir>"
+        MSG="$MSG\n    <local file>: the file to publish to the web server"
+        MSG="$MSG\n    <server dir>: the path on the web server to serve the file from"
+        MSG="$MSG\n                  (relative to the base dir $WWW_BASEDIR/)."
+        MSG="$MSG\n                  Optional; defaults to 'tmp'."
+        echo -e "$MSG" 1>&2
+        return 1
+    fi
+    local n="${#@}"
+    # echo "n: $n"
+    if [[ "$#" -ge 2 ]];
+        then
+
+        # length=$(($#-1))
+        # echo "length: $length"
+        FILES=${@:1:$n-1}
+        # echo "FILES: $FILES"
+        local TARGET_DIR=${@:$n}
+        # echo "TARGET_DIR: $TARGET_DIR"
+
+        for f in $FILES; do
+            if [[ -f "$f" ]]; then
+                echo "$f -> $TARGET_DIR"
+                publish_file $f $TARGET_DIR
+            elif [[ -d "$d" ]]; then
+                echo "copying dir $f -> $TARGET_DIR"
+                publish_dir $f $TARGET_DIR
+            else
+                echo "$f is neither a file nor dir??"
+            fi
+        done
+
+        # local args=()
+        # # for i; do args=("$i") + "$args"; done
+        # for i; do args=("$i" "${args[@]}"); done
+        # set -- $args
+        # local TARGET_DIR="$1"
+        # echo "1 $1"
+        # echo "args: $args"
+        # # echo "args[0]: $args"
+        # local FILES="${args[@]:1}"
+        # echo "FILES: $FILES"
+        # echo "${FILES[0]}"
+    else
+        publish_file $f $TARGET_DIR
+
+    fi
+
+}
+
+
+# unset publish_file
