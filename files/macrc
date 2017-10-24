@@ -1,0 +1,4 @@
+
+BREW=$(brew --prefix)
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source $BREW/opt/autoenv/activate.sh
