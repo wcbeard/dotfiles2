@@ -111,7 +111,7 @@ fpath=($BREW/share/zsh-completions $fpath)
 
 # autojump/autoenv
 [ -f $BREW/etc/profile.d/autojump.sh ] && . $BREW/etc/profile.d/autojump.sh
-#source $BREW/opt/autoenv/activate.sh
+source $BREW/opt/autoenv/activate.sh
 
 
 source ~/bash_ssh.sh
