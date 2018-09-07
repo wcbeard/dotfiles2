@@ -7,11 +7,11 @@
 
 
 # Our LDAP-protected web server.
-export WWW_SERVER="dashboard1.metrics.scl3.mozilla.com"
+export WWW_SERVER="hala"
 # The www dir for hosting files behind LDAP.
 export WWW_BASEDIR="/data/www/metrics.mozilla.com/protected/wbeard"
-export dashboard1="dashboard1.metrics.scl3.mozilla.com"
-export hala1="hala1.metrics.scl3.mozilla.com"
+export dashboard1="hala"
+# export hala1="hala1.metrics.scl3.mozilla.com"
 # S3 buckets.
 #
 # Parquet datasets (Spark DataFrames).
@@ -35,7 +35,9 @@ publish_file () {
     local LOCAL_FILENAME="$(basename "$1")"
     local TARGET_DIR="$WWW_BASEDIR/${2:-tmp}"
     local TARGET_FILE="$TARGET_DIR/$LOCAL_FILENAME"
-
+    echo "WWW_SERVER=$WWW_SERVER"
+    echo "LOCAL_FILENAME=$LOCAL_FILENAME"
+    echo "WWW_BASEDIR=$WWW_BASEDIR"
     # Copy the file.
     scp "$1" "$WWW_SERVER:$TARGET_DIR"
     # If copying failed, could be because the VPN was not connected.
@@ -47,9 +49,9 @@ publish_file () {
 
     # Check the permissions on the copied file.
     local STAT_CMD="stat -c \"%a\" $TARGET_FILE"
-    local PERMS_ON_SERVER="$(ssh dashboard1.metrics.scl3.mozilla.com "$STAT_CMD")"
+    local PERMS_ON_SERVER="$(ssh hala "$STAT_CMD")"
     if [[ "$PERMS_ON_SERVER" != "644"  ]]; then
-        ssh dashboard1.metrics.scl3.mozilla.com "chmod 644 $TARGET_FILE"
+        ssh hala "chmod 644 $TARGET_FILE"
         echo "Permissions updated."
     fi
 }
@@ -72,9 +74,9 @@ publish_dir () {
 
     # Check the permissions on the copied file.
     local STAT_CMD="stat -c \"%a\" $TARGET_FILE"
-    local PERMS_ON_SERVER="$(ssh dashboard1.metrics.scl3.mozilla.com "$STAT_CMD")"
+    local PERMS_ON_SERVER="$(ssh hala "$STAT_CMD")"
     if [[ "$PERMS_ON_SERVER" != "755"  ]]; then
-        ssh dashboard1.metrics.scl3.mozilla.com "chmod 755 $TARGET_FILE"
+        ssh hala "chmod 755 $TARGET_FILE"
         echo "Permissions updated."
     fi
 }
@@ -94,13 +96,12 @@ publish_www () {
         echo -e "$MSG" 1>&2
         return 1
     fi
+
     local n="${#@}"
     if [[ "$#" -ge 2 ]];
         then
-
         FILES=${@:1:$n-1}
         local TARGET_DIR=${@:$n}
-
         for f in $FILES; do
             if [[ -f "$f" ]]; then
                 echo "$f -> $TARGET_DIR"
@@ -114,6 +115,7 @@ publish_www () {
         done
 
     else
+        echo 'hi'
         publish_file $f $TARGET_DIR
 
     fi
