@@ -63,6 +63,9 @@ plugins=(git zsh-autosuggestions pip python tmux sublime cp autopep8)
 
 
 source $ZSH/oh-my-zsh.sh
+
+# might need to specify local brew location
+source ~/.config/local.sh
 BREW=$(brew --prefix)
 
 # User configuration
@@ -72,15 +75,22 @@ BREW=$(brew --prefix)
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-  export GIT_EDITOR='vim'
-else
+# # Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+#   export GIT_EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+#   export GIT_EDITOR='nvim'
+# fi
+
+if ! type "$nvim" > /dev/null; then
   export EDITOR='nvim'
   export GIT_EDITOR='nvim'
+else
+  export EDITOR='vim'
+  export GIT_EDITOR='vim'
 fi
-
 
 # Load after plugins (gc alias conflict)
 if [ -f ~/.bash_aliases ]; then
@@ -96,7 +106,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # Python
 export PYTHONDONTWRITEBYTECODE=True
 export PATH="$HOME/miniconda3/bin:$PATH"
-export PATH="$HOME/repos/myutils:$PATH"
 
 # Aliases
 agpy () {
@@ -112,7 +121,5 @@ fpath=($BREW/share/zsh-completions $fpath)
 
 # autojump/autoenv
 [ -f $BREW/etc/profile.d/autojump.sh ] && . $BREW/etc/profile.d/autojump.sh
-source $BREW/opt/autoenv/activate.sh
+#source $BREW/opt/autoenv/activate.sh
 
-
-source ~/bash_ssh.sh
