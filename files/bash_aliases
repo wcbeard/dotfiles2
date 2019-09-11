@@ -49,12 +49,13 @@ alias gc="git clone"
 alias gpl="git pull"
 alias pi="pip install"
 alias pf="pip freeze"
+alias bi="brew install"
 alias hist="tac ~/.zsh_history | sed -E 's/\: [0-9]+\:0;(.+)/\\1/' | less"
 alias gig="$editor `git config --global core.excludesfile`"
 alias wo="workon"
 
-alias ca="source activate"
-alias sd="source deactivate"
+alias ca="conda activate"
+alias sd="conda deactivate"
 alias mkc="conda create --name"
 alias cl="conda list"
 alias ce="conda env"
@@ -82,12 +83,29 @@ alias dw="/Volumes/C/Users/beardc01/Desktop/"
 pb="/Volumes/C/Users/beardc01/Desktop/pasteboard.txt"
 alias ipj="ipython notebook --profile julia"
 
-alias julia="/Applications/Julia-0.4*/Contents/Resources/julia/bin/julia"
+# alias julia="/Applications/Julia-0.4*/Contents/Resources/julia/bin/julia"
 # alias julia="/Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia"
 # ln -s /Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia /usr/local/bin/julia
 # alias julia="exec '/Applications/Julia-0.3.1.app/Contents/Resources/julia/bin/julia'"
 # alias psc-make=~/repos/scatter/.cabal-sandbox/bin/psc-make
 
+alias bu="brew update"
+
 alias ff="/Applications/Firefox.app/Contents/MacOS/firefox -ProfileManager"
 alias ffn="/Applications/FirefoxNightly.app/Contents/MacOS/firefox -ProfileManager"
 alias ffd="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox -ProfileManager"
+
+alias lse="ls -lt ~/repos/*/environment.yml"
+
+alias ss="nv ~/Library/Application\ Support/Sublime\ Text\ 3/Local/Session.sublime_session"
+
+
+# Recreate env
+function recenv () {
+    conda deactivate
+    conda env remove -yn $1
+    conda env create
+    conda activate $1
+    echo "Run:"
+    echo "jupyter labextension install jupyterlab_vim @jupyterlab/toc @ryantam626/jupyterlab_code_formatter"
+}

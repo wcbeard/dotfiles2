@@ -50,6 +50,7 @@ export USE_LIBPCRE=yes
 setopt extendedglob
 # export LESSOPEN="| src-hilite-lesspipe.sh %s"
 # export LESS=" -R "
+disable r
 
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -105,7 +106,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Python
 export PYTHONDONTWRITEBYTECODE=True
-export PATH="$HOME/miniconda3/bin:$PATH"
+
 
 # Aliases
 agpy () {
@@ -122,4 +123,23 @@ fpath=($BREW/share/zsh-completions $fpath)
 # autojump/autoenv
 [ -f $BREW/etc/profile.d/autojump.sh ] && . $BREW/etc/profile.d/autojump.sh
 #source $BREW/opt/autoenv/activate.sh
+export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts"
+
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/wbeard/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/wbeard/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/wbeard/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/wbeard/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
