@@ -29,7 +29,6 @@ alias ins3='ipython3 notebook --pylab=inline --script --InteractiveShellApp.pyla
 alias ssh="ssh -X"
 alias untar="tar -zxvf"
 alias ej="hdiutil eject" # for ejecting
-alias dr="cd ~/Dropbox" # dropbox directory
 alias dt="cd ~/Desktop" #desktop
 alias ~="cd ~/"
 alias ..='cd ..'
@@ -64,6 +63,9 @@ alias ce="conda env"
 alias ceu="conda env update"
 alias cec="conda env create"
 
+alias dea="direnv allow"
+
+
 # Git
 # alias summ="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias summ="git log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s' --decorate --numstat"
@@ -92,6 +94,7 @@ alias ipj="ipython notebook --profile julia"
 # alias psc-make=~/repos/scatter/.cabal-sandbox/bin/psc-make
 
 alias bu="brew update"
+alias bi="brew install"
 
 alias ff="/Applications/Firefox.app/Contents/MacOS/firefox -ProfileManager"
 alias ffn="/Applications/FirefoxNightly.app/Contents/MacOS/firefox -ProfileManager"
