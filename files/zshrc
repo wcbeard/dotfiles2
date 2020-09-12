@@ -125,7 +125,8 @@ fpath=($BREW/share/zsh-completions $fpath)
 #source $BREW/opt/autoenv/activate.sh
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts"
 
-
+# Direnv-conda prompt hack
+export PROMPT='$CUSTOM_PS1'$PROMPT
 
 
 # >>> conda initialize >>>
