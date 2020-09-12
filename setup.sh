@@ -40,5 +40,6 @@ ln -s "$FILES/gitconfig" "$HOME/.gitconfig"
 ln -s "$FILES/nvimrc" "$HOME/.config/nvim/init.vim"
 ln -s "$FILES/direnvrc.sh" "$HOME/.direnvrc"
 ln -s "$FILES/linuxrc" "$HOME/.config/linuxrc"
+ln -s "$FILES/karabiner" "$HOME/.config/karabiner"
 
 
