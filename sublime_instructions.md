@@ -53,3 +53,22 @@ Add
         ],
     },
 ```
+
+Project level:
+```json
+{
+    "settings":
+    {
+        "SublimeLinter.linters.mypy.env":
+        {
+            "MYPYPATH": "${project_path}/intv"
+        },
+        "SublimeLinter.linters.mypy.executable": "/Users/wbeard/miniconda3/envs/intv/bin/mypy",
+        "SublimeLinter.linters.flake8.executable": "/Users/wbeard/miniconda3/envs/intv/bin/flake8",
+    }
+}
+```
+
+## Flake8
+- pkg install SublimeLinter-flake8
+- Add project-level settings above

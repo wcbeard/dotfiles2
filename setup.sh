@@ -26,7 +26,16 @@ ln -s "$FILES/gitconfig" "$HOME/.gitconfig"
 ln -s "$FILES/nvimrc" "$HOME/.config/nvim/init.vim"
 ln -s "$FILES/direnvrc.sh" "$HOME/.direnvrc"
 ln -s "$FILES/linuxrc" "$HOME/.config/linuxrc"
-ln -s "$FILES/karabiner" "$HOME/.config/karabiner"
-ln -s "$FILES/local.sh" "$HOME/.config/local.sh"
+ln -s "$FILES/karabiner" "$HOME/.config"
+
+if [[ -f "$FILES/local_setup.sh" ]]; then
+	echo 'here'
+else
+	echo 'not here'
+
+fi
+
+# ln -s "$FILES/local-mozbox.sh" "$HOME/.config/local.sh"
+# ln -s "$FILES/local.sh" "$HOME/.config/local.sh"
 
 
